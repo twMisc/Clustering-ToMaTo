@@ -17,7 +17,7 @@ function densityf(X::Array,k::Int64=35)
     dim=size(X,2)
     kdtree = KDTree(X')
     idxs, dists = knn(kdtree, X', k)
-    f=[]
+    f=Array{Number,1}()
     if dim==2
         for i=1:n
             push!(f,k*(k+1)/(2*n*pi*sum(dists[i].^2)))
@@ -102,7 +102,7 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
 end
 =#
 
-function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
+function Clustering(G::Array{Array{Int64,1},1},f::Array{Number,1},tao::Number)
     n=length(f)
     g=zeros(n);
     v=[i for i in 1:n]
@@ -112,7 +112,7 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
     #ver_f(x)=vertices_corr[x]
     vertices_corr_inv=Dict(zip(pairs[:,2],1:n));
     ver_invf(x)=vertices_corr_inv[x]
-    C=[]
+    C=Array{Array{Int64,1},1}()
     for subset in pairs[:,3]
         push!(C,ver_invf.(subset))
     end
@@ -148,7 +148,7 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
     end
     S=Set([find_root(u,i) for i=1:n if pairs[find_root(u,i),1]>=tao])
     S2=[s for s in S]
-    Xs=[]
+    Xs=Array{Tuple{Int64,Array{Int64,1}},1}()
     for j=1:length(S2)
         Xs=push!(Xs,(pairs[S2[j],2],[pairs[i,2] for i=1:n if in_same_set(u,S2[j],i)]))
     end
