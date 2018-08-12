@@ -102,7 +102,7 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
 end
 =#
 
-function Clustering(G::Array{Array{Int64,1},1},f::Array{Float64,1},tao::Number)
+function Clustering(G::Array{Array{Int64,1},1},f::Array{Float64},tao::Number)
     n=length(f)
     g=zeros(n);
     v=[i for i in 1:n]
