@@ -17,7 +17,7 @@ function densityf(X::Array,k::Int64=35)
     dim=size(X,2)
     kdtree = KDTree(X')
     idxs, dists = knn(kdtree, X', k)
-    f=Array{Number,1}()
+    f=Array{Float64,1}()
     if dim==2
         for i=1:n
             push!(f,k*(k+1)/(2*n*pi*sum(dists[i].^2)))
@@ -102,7 +102,7 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array,tao::Number)
 end
 =#
 
-function Clustering(G::Array{Array{Int64,1},1},f::Array{Number,1},tao::Number)
+function Clustering(G::Array{Array{Int64,1},1},f::Array{Float64,1},tao::Number)
     n=length(f)
     g=zeros(n);
     v=[i for i in 1:n]
