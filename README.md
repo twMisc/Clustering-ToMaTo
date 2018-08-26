@@ -13,7 +13,7 @@ http://dx.doi.org/10.1145/2535927
 Note that it is written with Julia 0.6.4, for Julia 1.0, may try the file ClusteringFunctions_1.0.jl so that the function in NearestNeighbors.jl would work as aspected, but for now(2018.08.11) the plotting is broken.
 
 
-using datas from
+# using datas from
 https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/data?language_sync=1
 
 https://geometrica.saclay.inria.fr/data/ToMATo/        (Original ToMaTo Author)
