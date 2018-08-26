@@ -15,5 +15,7 @@ Note that it is written with Julia 0.6.4, for Julia 1.0, may try the file Cluste
 
 using datas from
 https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/data?language_sync=1
+
 https://geometrica.saclay.inria.fr/data/ToMATo/        (Original ToMaTo Author)
+
 https://snap.stanford.edu/data/
