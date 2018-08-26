@@ -148,11 +148,12 @@ function Clustering(G::Array{Array{Int64,1},1},f::Array{Float64},tao::Number)
     end
     S=Set([find_root(u,i) for i=1:n if pairs[find_root(u,i),1]>=tao])
     S2=[s for s in S]
-    Xs=Array{Tuple{Int64,Array{Int64,1}},1}()
+    Xs=Array{Array{Int64,1},1}()
     for j=1:length(S2)
-        Xs=push!(Xs,(pairs[S2[j],2],[pairs[i,2] for i=1:n if in_same_set(u,S2[j],i)]))
+        Xs=push!(Xs,([pairs[i,2] for i=1:n if in_same_set(u,S2[j],i)]))
     end
-    return Xs
+    u=Int.(pairs[u.parents,2]);
+    return Xs, u
 end
 
 #=                                                    
@@ -187,7 +188,7 @@ function PlotClustering(X::Array,S::Set,u::DataStructures.IntDisjointSets,mark=2
 end
 =#                                                    
                                                                                                             
-function data2clust(data::Array,graph=1,k1=4,k2=4,tao=0.01)
+function data2clust(data::Array=rand(100,2),graph=1,k1=4,k2=4,tao=0.01)
    f=densityf(data,k2)
    if graph==1
         return Clustering(createGraph(data,k1),f,tao)
@@ -199,24 +200,45 @@ function data2clust(data::Array,graph=1,k1=4,k2=4,tao=0.01)
     end
 end
 
-function PlotClustering(X::Array,S,mark=2000/size(X,1))
-    plt=scatter();
+function PlotClustering(X::Array,S::Array{Array{Int64,1},1},mark=2000/size(X,1))
     if size(X,2)==2
-        for pair in S
-            plt=scatter!(X[pair[2],1],X[pair[2],2],label=pair[1],ms=mark,aspect_ratio=:equal)
+        gr();
+        plt=scatter();
+        for array in S
+            plt=scatter!(X[array,1],X[array,2],label="",ms=mark,aspect_ratio=:equal,markerstrokealpha=1,markerstrokewidth=0.1)
+        end
+        for i=1:size(S,1)
+            roots=S[i][1]
+            plt=annotate!(X[roots,1],X[roots,2],text("X"));
         end
     elseif size(X,2)==3
-        for pair in S
-            plt=scatter!(X[pair[2],1],X[pair[2],2],X[pair[2],3],label=pair[1],ms=mark,aspect_ratio=:equal)
+        pyplot();
+        plt=scatter();
+        for array in S
+            plt=scatter!(X[array,1],X[array,2],X[array,3],label="",ms=mark,aspect_ratio=:equal,markerstrokealpha=1,markerstrokewidth=0.1)
+        end              
+        #=                                                            
+        for i=1:size(S,1)
+            roots=S[i][1]
+            plt=annotate!(X[roots,1],X[roots,2],X[roots,3],text("X"));
         end
+        =#
     elseif size(X,1)==1
-        for pair in S
-            plt=scatter!(X[pair[2],1],label=pair[2],ms=mark,aspect_ratio=:equal)
+        gr();
+        plt=scatter();
+        for array in S
+            plt=scatter!(X[array,1],label="",ms=mark,aspect_ratio=:equal,markerstrokealpha=1,markerstrokewidth=0.1)
+        end
+        for i=1:size(S,1)
+            roots=S[i][1]
+            plt=annotate!(X[roots,1],text("X"));
         end
     end
     points=0
     for pair in S
         points=points+length(pair[2])
     end
+
+                                                        
     return points, plt
 end
