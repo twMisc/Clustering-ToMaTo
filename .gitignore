@@ -1,3 +1,4 @@
-
 .ipynb_checkpoints/ClusteringDemo-checkpoint.ipynb
 *.swp
+FCPS/
+Manifest.toml

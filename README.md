@@ -11,6 +11,6 @@ http://dx.doi.org/10.1145/2535927
 
 ## using datas from
 
-- https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/data?language_sync=1
+- https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/downloads/FCPS
 - https://geometrica.saclay.inria.fr/data/ToMATo/        (Original ToMaTo Author)
 - https://snap.stanford.edu/data/
