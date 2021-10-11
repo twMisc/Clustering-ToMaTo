@@ -1,0 +1,10 @@
+name = "ClusteringToMaTo"
+uuid = "a174fcc0-226c-4228-9356-9cf23f81b616"
+authors = ["Che-Chia Chang <ccchang.am09g@nctu.edu.tw>"]
+version = "0.1.0"
+
+[deps]
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+Distances = "b4f34e82-e78d-54a5-968a-f98e89d6e8f7"
+NearestNeighbors = "b8a86587-4115-5ab1-83bc-aa920d37bbce"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
