@@ -1,5 +1,8 @@
 # ClusteringToMaTo.jl
 
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://pnavaro.github.io/ClusteringToMaTo.jl/dev)
+
+
 Clustering with the Julia language, based on 
 
 Chazal, F., Guibas, L. J., Oudot, S. Y., and Skraba, P. 2013. Persistence-based clustering in Riemannian
