@@ -9,8 +9,8 @@ using ClusteringToMaTo
 ```@example 2
 Sp = readdlm(joinpath("spiral_w_o_density.txt"))
 
-options = (ms=3,aspect_ratio=:equal, markerstrokewidth=0.1)
-scatter(Sp[:,1],Sp[:,2]; options...)
+options = ( ms = 1, aspect_ratio=:equal, markerstrokewidth=0.1)
+scatter(Sp[1:10:end,1],Sp[1:10:end,2]; options...)
 ```
 
 ```@example 2
@@ -36,5 +36,5 @@ p = plot()
 for s in getindex.(sol,2)
     scatter!(p, toy[s,1],toy[s,2]; options... )
 end
-display(p)
+p
 ```
