@@ -3,6 +3,6 @@
 Documentation for ClusteringToMaTo.jl
 
 ```@autodocs
-Modules = [KPLMCenters]
+Modules = [ClusteringToMaTo]
 Order   = [:type, :function]
 ```

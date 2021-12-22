@@ -18,7 +18,7 @@ scatter(A[U[2],1], A[U[2], 2])
 scatter!(A[V[2],1], A[V[2], 2])
 ```
 
-```@example1
+```@example 1
 B = readdlm(joinpath("FCPS","01FCPSdata","Lsun.lrn"))
 B = float.(B[5:end,2:3]);
 
