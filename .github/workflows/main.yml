@@ -19,10 +19,6 @@ jobs:
         arch:
           - x64
     steps:
-      - name: Download FCPS data
-        run: |
-           wget https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/downloads/FCPS -O FCPS.zip
-           unzip FCPS.zip -d docs/src/
       - uses: actions/checkout@v2
       - uses: julia-actions/setup-julia@v1
         with:
@@ -46,6 +42,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: julia-actions/julia-buildpkg@latest
+      - name: Download FCPS data
+        run: |
+           wget https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/downloads/FCPS -O FCPS.zip
+           unzip FCPS.zip -d docs/src/
       - uses: julia-actions/julia-docdeploy@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
