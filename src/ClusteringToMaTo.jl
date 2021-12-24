@@ -1,6 +1,9 @@
 module ClusteringToMaTo
 
-using Distances, Plots, DataStructures, NearestNeighbors
+using DataStructures
+using Distances
+using NearestNeighbors
+
 export createGraph, createGraph2, densityf, Clustering, PlotClustering, data2clust
 
 function createGraph(X::Array, k::Integer)
@@ -42,7 +45,7 @@ function densityf(X::Array, k::Int64 = 35)
     return f
 end
 
-function Clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
+function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
     n = length(f)
     g = zeros(n)
     v = [i for i = 1:n]
@@ -101,9 +104,9 @@ end
 function data2clust(data::Array, graph = 1, k1 = 4, k2 = 4, tao = 0.01)
     f = densityf(data, k2)
     if graph == 1
-        return Clustering(createGraph(data, k1), f, tao)
+        return clustering(createGraph(data, k1), f, tao)
     elseif graph == 2
-        return Clustering(createGraph2(data, k1), f, tao)
+        return clustering(createGraph2(data, k1), f, tao)
     else
         println("The 2nd varaible should be 1 or 2")
         return 1
