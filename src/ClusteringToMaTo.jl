@@ -51,8 +51,6 @@ function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
     v = [i for i = 1:n]
     pair = [f v G]
     pairs = sortslices(pair, dims = 1, rev = true, by = x -> x[1])
-    #vertices_corr=Dict(zip(1:n,pairs[:,2]));
-    #ver_f(x)=vertices_corr[x]
     vertices_corr_inv = Dict(zip(pairs[:, 2], 1:n))
     ver_invf(x) = vertices_corr_inv[x]
     C = []
@@ -60,7 +58,6 @@ function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
         push!(C, ver_invf.(subset))
     end
     pairs[:, 3] = C
-    #dictpair=Dict(zip(v,f));
     u = IntDisjointSets(n)
     for i = 1:n
         nGi = [j for j in pairs[i, 3] if j < i]
@@ -74,7 +71,6 @@ function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
             #eiV=[i for i=1:n if in_same_set(u,ei,i)];
             for j in nGi
                 e = find_root(u, j)
-                #eV=[i for i=1:n if in_same_set(u,e,i)];
                 if e != ei && minimum([pairs[e, 1]; pairs[ei, 1]]) < pairs[i, 1] + tao
                     if pairs[e, 1] < pairs[ei, 1]
                         union!(u, ei, e)
@@ -82,8 +78,6 @@ function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
                         union!(u, e, ei)
                     end
                     e2 = find_root(u, e)
-                    #u.parents[e2]=e2[indmax(ff.(e2))];
-                    #eiV=e2;
                     ei = e2
                 end
             end
