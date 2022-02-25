@@ -68,7 +68,6 @@ function clustering(G::Array{Array{Int64,1},1}, f::Array, tao::Number)
             g[i] = nGi[argmax(ff.(nGi))]
             ei = find_root(u, Int.(g[i]))
             union!(u, ei, i)
-            #eiV=[i for i=1:n if in_same_set(u,ei,i)];
             for j in nGi
                 e = find_root(u, j)
                 if e != ei && minimum([pairs[e, 1]; pairs[ei, 1]]) < pairs[i, 1] + tao
