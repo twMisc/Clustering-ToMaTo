@@ -12,6 +12,11 @@ J. ACM
 DOI:
 http://dx.doi.org/10.1145/2535927
 
+[preprint](https://geometrica.saclay.inria.fr/data/Steve.Oudot/clustering/jacm_oudot.pdf)
+
+
+
+
 ## using datas from
 
 - https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/downloads/FCPS
