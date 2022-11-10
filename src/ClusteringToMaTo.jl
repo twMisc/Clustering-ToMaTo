@@ -4,7 +4,7 @@ using DataStructures
 using Distances
 using NearestNeighbors
 
-export createGraph, createGraph2, densityf, Clustering, PlotClustering, data2clust
+export createGraph, createGraph2, densityf, data2clust
 
 function createGraph(X::Array, k::Integer)
     X = float.(X')
