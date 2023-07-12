@@ -1,6 +1,5 @@
 # Demos
 
-```@example 1
 We use data from 
 
 Ultsch, A.; Lötsch, J. The Fundamental Clustering and Projection Suite (FCPS): A Dataset Collection to Test the Performance of Clustering and Data Projection Algorithms. Data 2020, 5, 13. https://doi.org/10.3390/data5010013
