@@ -3,8 +3,6 @@ using ClusteringToMaTo
 using Plots
 using DelimitedFiles
 
-data2clust(rand(100,2),2,0.5,20,0.2)
-
 A = readdlm(joinpath("FCPS","01FCPSdata","TwoDiamonds.lrn"))
 A = float.(A[5:end,2:3])
 
