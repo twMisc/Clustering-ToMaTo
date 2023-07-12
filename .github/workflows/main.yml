@@ -13,13 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.7'
+          - '1'
         os:
           - ubuntu-latest
         arch:
           - x64
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.version }}
@@ -40,12 +40,9 @@ jobs:
     name: Documentation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: julia-actions/julia-buildpkg@latest
-      - name: Download FCPS data
-        run: |
-           wget https://www.uni-marburg.de/fb12/arbeitsgruppen/datenbionik/downloads/FCPS -O FCPS.zip
-           unzip FCPS.zip -d docs/src/
+      - run: mv notebooks/data docs/src/
       - uses: julia-actions/julia-docdeploy@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
