@@ -45,42 +45,45 @@ function data2clust(points::Array, graph = 1, k1 = 4, k2 = 4, τ = 0.01)
         idxs = inrange(kdtree, points, k1)
     end
 
-    g = zeros(Int, n)
-    v = collect(1:n)
-    pair = [f v idxs]
-    pairs = sortslices(pair, dims = 1, rev = true, by = x -> x[1])
-    vertices_corr_inv = Dict(zip(pairs[:, 2], 1:n))
-    C = [[vertices_corr_inv[i] for i in subset] for subset in pairs[:, 3]]
-    pairs[:, 3] = C
+    v = sortperm(f, rev = true)
+    f .= f[v]
+    vertices_corr_inv = Dict(zip(v, 1:n))
+    clusters = [[vertices_corr_inv[i] for i in subset] for subset in idxs[v]]
     u = IntDisjointSets(n)
-    for i = 1:n
-        nGi = [j for j in pairs[i, 3] if j < i]
+    for i = eachindex(v)
+        nGi = [j for j in clusters[i] if j < i]
         if length(nGi) == 0
             #vertex is a peak of f within G
         else
-            ff(i) = pairs[i, 1]
-            g[i] = nGi[argmax(ff.(nGi))]
-            ei = find_root(u, Int.(g[i]))
+            g = nGi[argmax(view(f, nGi))]
+            ei = find_root!(u, g)
             union!(u, ei, i)
             for j in nGi
-                e = find_root(u, j)
-                if e != ei && minimum([pairs[e, 1]; pairs[ei, 1]]) < pairs[i, 1] + τ
-                    if pairs[e, 1] < pairs[ei, 1]
+                e = find_root!(u, j)
+                if e != ei && min(f[e], f[ei]) < f[i] + τ
+                    if f[e] < f[ei]
                         union!(u, ei, e)
                     else
                         union!(u, e, ei)
                     end
-                    e2 = find_root(u, e)
+                    e2 = find_root!(u, e)
                     ei = e2
                 end
             end
         end
     end
-    S = unique([find_root(u, i) for i = 1:n if pairs[find_root(u, i), 1] >= τ])
+    s = Int[]
+    for i = 1:n
+        g = find_root!(u, i)
+        if f[g] >= τ && !(g in s)
+           push!(s, g)
+        end
+    end
     labels = zeros(Int, n)
-    for j = eachindex(S)
-        cluster = [pairs[i, 2] for i = 1:n if in_same_set(u, S[j], i)]
-        labels[cluster] .= j
+    for j = eachindex(s), i in 1:n
+        if in_same_set(u, s[j], i)
+            labels[v[i]] = j
+        end
     end
 
     return labels
